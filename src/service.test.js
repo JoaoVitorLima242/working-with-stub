@@ -25,4 +25,14 @@ const BASE_URL = 'https://swapi.dev/api/planets/';
         const result = await service.getPlanet(1)
         assert.deepStrictEqual(result, expect)
     }
+    {
+        const expect = {
+            name: "Alderaan",
+            surfaceWater: "40",
+            appeardIn: 2,
+        };
+
+        const result = await service.getPlanet(2)
+        assert.deepStrictEqual(result, expect)
+    }
 })();
