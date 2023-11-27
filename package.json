@@ -4,7 +4,7 @@
   "description": "## What is it?  Basically, a stub is a piece of code or function that serves as a simulation of a code behavior.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node src/service.test.js"
   },
   "engines": {
     "node": "18"
