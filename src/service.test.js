@@ -1,12 +1,28 @@
-const Service = require('./service')
-const assert = require('assert')
+const Service = require("./service");
+const assert = require("assert");
+const { createSandbox } = require("sinon");
+const sinon = createSandbox();
+const mocks = {
+    alderaan: require("../mocks/alderaan.json"),
+    tatooine: require("../mocks/tatooine.json"),
+};
 
-;(async () => {
-    const service = new Service()
-    
+const BASE_URL = 'https://swapi.dev/api/planets/';
+
+(async () => {
+    const service = new Service();
+    const stub = sinon.stub(service, service.makeRequest.name);
+    stub.withArgs(BASE_URL + 1).resolves(mocks.tatooine);
+    stub.withArgs(BASE_URL + 2).resolves(mocks.alderaan);
+
     {
-        const planetOne = await service.getPlanet(2)
+        const expect = {
+            name: "Tatooine",
+            surfaceWater: "1",
+            appeardIn: 5,
+        };
 
-        console.log(JSON.stringify(planetOne))    
+        const result = await service.getPlanet(1)
+        assert.deepStrictEqual(result, expect)
     }
-})()
+})();
